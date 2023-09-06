@@ -1,0 +1,2 @@
+# Aimo
+Bitboard Chess Engine
