@@ -1,12 +1,12 @@
 #include <iostream>
-#include "fib.h"
+#include "Bitboard.h"
 
-int main()
-{
-	ull number;
-	std::cout << "Enter the position for Fibonacci sequence: ";
-	std::cin >> number;
-	std::cout << "The Fibonacci number at position" << number << " is: "
-		<< fib(number) << std::endl;
-	return 0;
+int main() {
+    Bitboard b;
+    b.setSquare(0);   // a8
+    b.setSquare(63);  // h1
+
+    b.pprint();
+
+    return 0;
 }

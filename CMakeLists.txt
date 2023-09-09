@@ -6,10 +6,12 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 set(SOURCES 
     src/fib.cpp
+    src/Bitboard.cpp
 )
 
 set(HEADERS 
     include/fib.h
+    include/Bitboard.h
 )
 
 add_library(aimo_lib ${SOURCES} ${HEADERS})
