@@ -1,0 +1,47 @@
+# macOS generated files
+.DS_Store
+
+# Build files
+/build/
+*.o
+*.lo
+*.la
+# etc...
+
+# CMake generated files
+CMakeCache.txt
+CMakeFiles/
+*.cmake
+Makefile
+*.build/
+cmake_install.cmake
+*.swp
+*.swo
+
+# Compiled Object files, Static and Dynamic libs (Shared Objects)
+*.slo
+*.lo
+*.o
+*.a
+*.lib
+*.so
+*.so.*
+*.dylib
+
+# Executables
+*.exe
+*.out
+*.app
+*.i*86
+*.x86_64
+*.hex
+
+# VS Code directories
+.vscode/
+
+# CLion directories
+.idea/
+
+# Other tools might create backup or temporary files in the repo, ignore them
+*~
+*.bak
