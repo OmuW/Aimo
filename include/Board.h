@@ -3,6 +3,7 @@
 #include <array>
 #include <cstdint>
 #include <iostream>
+#include <string>
 #include "Bitboard.h"
 #include "chess_utils.h"
 
@@ -27,12 +28,14 @@ private:
 
 public:
     Board(); // Initializes the board to its starting position.
-    // TODO: Add a constructor that takes a FEN string.
+    Board(std::string& fen);
     // TODO: Add a constructor that takes a Board and a Move and returns a new Board. 
+    // NOTE: this will need make/unmake move functions.
     
     Bitboard getBitboard(Piece piece, Color color) const;
     void setBitboard(Piece piece, Color color, const Bitboard& bitboard);
 
+    std::string toFen() const;
     void pprint() const;
 };
 

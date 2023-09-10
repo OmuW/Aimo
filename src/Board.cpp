@@ -26,6 +26,89 @@ Board::Board() {
     enPassant = Bitboard(0);
 }
 
+Board::Board(std::string& fen) {
+    for (int i = 0; i < PIECE_COUNT; ++i) {
+        for (int j = 0; j < COLOR_COUNT; ++j) {
+            board[j][i] = Bitboard(0);
+        }
+    }
+    // first, we'll grab the piece positions
+    std::string piecePlacement = fen.substr(0, fen.find(" "));
+    // now, we'll iterate through the ranks
+    int rank = 7;
+    int file = 0;
+    for (char c : piecePlacement) {
+        if (c == '/') {
+            rank--;
+            file = 0;
+        } else if (c >= '1' && c <= '8') {
+            file += c - '0';
+        } else {
+            Color color = (c >= 'a' && c <= 'z') ? Color::BLACK : Color::WHITE;
+            Piece piece;
+            switch (c) {
+                case 'p':
+                case 'P':
+                    piece = Piece::PAWN;
+                    break;
+                case 'n':
+                case 'N':
+                    piece = Piece::KNIGHT;
+                    break;
+                case 'b':
+                case 'B':
+                    piece = Piece::BISHOP;
+                    break;
+                case 'r':
+                case 'R':
+                    piece = Piece::ROOK;
+                    break;
+                case 'q':
+                case 'Q':
+                    piece = Piece::QUEEN;
+                    break;
+                case 'k':
+                case 'K':
+                    piece = Piece::KING;
+                    break;
+            }
+            board[color][piece].setSquare(rank * 8 + file);
+            file++;
+        }
+    }
+
+    // now, we'll grab the active color
+    std::string activeColorString = fen.substr(fen.find(" ") + 1, 1);
+    activeColor = (activeColorString == "w") ? Color::WHITE : Color::BLACK;
+
+    // now, we'll grab the castling rights
+    std::string castlingRightsString = fen.substr(fen.find(" ") + 3, fen.find(" ", fen.find(" ") + 3) - (fen.find(" ") + 3));
+    castlingRights = 0;
+    if (castlingRightsString.find("K") != std::string::npos) {
+        castlingRights |= CastlingRights::WHITE_KING_SIDE;
+    }
+    if (castlingRightsString.find("Q") != std::string::npos) {
+        castlingRights |= CastlingRights::WHITE_QUEEN_SIDE;
+    }
+    if (castlingRightsString.find("k") != std::string::npos) {
+        castlingRights |= CastlingRights::BLACK_KING_SIDE;
+    }
+    if (castlingRightsString.find("q") != std::string::npos) {
+        castlingRights |= CastlingRights::BLACK_QUEEN_SIDE;
+    }
+
+    // now, we'll grab the en passant square
+    std::string enPassantString = fen.substr(fen.find(" ", fen.find(" ") + 3) + 1, fen.find(" ", fen.find(" ", fen.find(" ") + 3) + 1) - (fen.find(" ", fen.find(" ") + 3) + 1));
+    enPassant = Bitboard(0);
+    if (enPassantString != "-") {
+        int file = enPassantString[0] - 'a';
+        int rank = enPassantString[1] - '1';
+        enPassant.setSquare(rank * 8 + file);
+    }
+
+    // TODO: add halfmove clock and fullmove number
+}
+
 Bitboard Board::getBitboard(Piece piece, Color color) const {
     return board[piece][color];
 }
