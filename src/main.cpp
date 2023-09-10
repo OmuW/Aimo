@@ -1,11 +1,8 @@
 #include <iostream>
-#include "Bitboard.h"
+#include "Board.h"
 
 int main() {
-    Bitboard b;
-    b.setSquare(0);   // a8
-    b.setSquare(63);  // h1
-
+    Board b;
     b.pprint();
 
     return 0;

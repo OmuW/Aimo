@@ -7,11 +7,15 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 set(SOURCES 
     src/fib.cpp
     src/Bitboard.cpp
+    src/Board.cpp
+    src/chess_utils.cpp
 )
 
 set(HEADERS 
     include/fib.h
     include/Bitboard.h
+    include/Board.h
+    include/chess_utils.h
 )
 
 add_library(aimo_lib ${SOURCES} ${HEADERS})
