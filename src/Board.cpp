@@ -24,6 +24,8 @@ Board::Board() {
         | CastlingRights::BLACK_KING_SIDE
         | CastlingRights::BLACK_QUEEN_SIDE;
     enPassant = Bitboard(0);
+    halfMoveClock = 0;
+    fullMoveNumber = 1;
 }
 
 Board::Board(std::string& fen) {
@@ -32,12 +34,15 @@ Board::Board(std::string& fen) {
             board[j][i] = Bitboard(0);
         }
     }
+
+    std::istringstream fenStream(fen);
+    std::string segment;
+
     // first, we'll grab the piece positions
-    std::string piecePlacement = fen.substr(0, fen.find(" "));
-    // now, we'll iterate through the ranks
+    std::getline(fenStream, segment, ' ');
     int rank = 7;
     int file = 0;
-    for (char c : piecePlacement) {
+    for (char c : segment) {
         if (c == '/') {
             rank--;
             file = 0;
@@ -78,35 +83,41 @@ Board::Board(std::string& fen) {
     }
 
     // now, we'll grab the active color
-    std::string activeColorString = fen.substr(fen.find(" ") + 1, 1);
-    activeColor = (activeColorString == "w") ? Color::WHITE : Color::BLACK;
+    std::getline(fenStream, segment, ' ');
+    activeColor = (segment == "w") ? Color::WHITE : Color::BLACK;
 
     // now, we'll grab the castling rights
-    std::string castlingRightsString = fen.substr(fen.find(" ") + 3, fen.find(" ", fen.find(" ") + 3) - (fen.find(" ") + 3));
+    std::getline(fenStream, segment, ' ');
     castlingRights = 0;
-    if (castlingRightsString.find("K") != std::string::npos) {
+    if (segment.find("K") != std::string::npos) {
         castlingRights |= CastlingRights::WHITE_KING_SIDE;
     }
-    if (castlingRightsString.find("Q") != std::string::npos) {
+    if (segment.find("Q") != std::string::npos) {
         castlingRights |= CastlingRights::WHITE_QUEEN_SIDE;
     }
-    if (castlingRightsString.find("k") != std::string::npos) {
+    if (segment.find("k") != std::string::npos) {
         castlingRights |= CastlingRights::BLACK_KING_SIDE;
     }
-    if (castlingRightsString.find("q") != std::string::npos) {
+    if (segment.find("q") != std::string::npos) {
         castlingRights |= CastlingRights::BLACK_QUEEN_SIDE;
     }
 
     // now, we'll grab the en passant square
-    std::string enPassantString = fen.substr(fen.find(" ", fen.find(" ") + 3) + 1, fen.find(" ", fen.find(" ", fen.find(" ") + 3) + 1) - (fen.find(" ", fen.find(" ") + 3) + 1));
+    std::getline(fenStream, segment, ' ');
     enPassant = Bitboard(0);
-    if (enPassantString != "-") {
-        int file = enPassantString[0] - 'a';
-        int rank = enPassantString[1] - '1';
+    if (segment != "-") {
+        int file = segment[0] - 'a';
+        int rank = segment[1] - '1';
         enPassant.setSquare(rank * 8 + file);
     }
 
-    // TODO: add halfmove clock and fullmove number
+    // now, we'll grab the half move clock
+    std::getline(fenStream, segment, ' ');
+    halfMoveClock = std::stoi(segment);
+
+    // now, we'll grab the full move number
+    std::getline(fenStream, segment, ' ');
+    fullMoveNumber = std::stoi(segment);
 }
 
 Bitboard Board::getBitboard(Piece piece, Color color) const {
@@ -153,4 +164,6 @@ void Board::pprint() const {
     std::cout << "    Black Queen Side: " << ((castlingRights & BLACK_QUEEN_SIDE) ? "Yes" : "No") << std::endl;
     std::string enPassantString = enPassant.countBits() ? ChessUtils::squareToString(enPassant.getLSB()) : "None";
     std::cout << "En Passant: " << enPassantString << std::endl;
+    std::cout << "Half Move Clock: " << halfMoveClock << std::endl;
+    std::cout << "Full Move Number: " << fullMoveNumber << std::endl;
 }

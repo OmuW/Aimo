@@ -4,6 +4,8 @@
 #include <cstdint>
 #include <iostream>
 #include <string>
+#include <sstream>
+#include <stdexcept>
 #include "Bitboard.h"
 #include "chess_utils.h"
 
@@ -24,7 +26,8 @@ private:
     Color activeColor;
     std::uint8_t castlingRights; // 4 bits for each castling right.
     Bitboard enPassant; // The en passant square, if any. If no en passant square, this is 0.
-
+    int halfMoveClock; // The number of half moves since the last capture or pawn advance.
+    int fullMoveNumber;
 
 public:
     Board(); // Initializes the board to its starting position.
