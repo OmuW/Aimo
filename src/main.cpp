@@ -1,12 +1,27 @@
 #include <iostream>
+#include <string>
 #include "Board.h"
+#include "Movegen.h"
 
 int main() {
-    Board b;
-    b.pprint();
-    std::string fen =  "2r5/3pk3/8/2P5/8/2K5/8/8 w - - 5 4";
-    Board b2(fen);
-    b2.pprint();
+    std::string fen = "8/8/8/8/8/8/PPPPPPPP/8 w - - 0 1";
+    Board pawnBoard(fen);
+
+    std::string black_fen = "8/pppppppp/8/8/8/8/8/8 b - - 0 1";
+    Board blackBoard(black_fen);
+
+    Movegen generator(pawnBoard);
+    Movegen blackGenerator(blackBoard);
+
+    std::vector<Move> moves = generator.generateLegalMoves(Color::WHITE);
+    pawnBoard.pprint();
+
+    std::cout << "Legal moves: " << moves.size() << std::endl;
+
+    std::vector<Move> black_moves = blackGenerator.generateLegalMoves(Color::BLACK);
+    blackBoard.pprint();
+
+    std::cout << "Legal moves: " << black_moves.size() << std::endl;
 
     return 0;
 }

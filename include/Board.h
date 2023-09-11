@@ -50,6 +50,8 @@ extern std::array<std::array<std::string, PIECE_COUNT>, COLOR_COUNT> pieceString
 class Board {
 private:
     std::array<std::array<Bitboard, PIECE_COUNT>, COLOR_COUNT> board;
+    Bitboard occupiedSquares;
+    Bitboard emptySquares;
 
     Color activeColor;
     std::uint8_t castlingRights; // 4 bits for each castling right.
@@ -65,8 +67,13 @@ public:
     // TODO: Add a constructor that takes a Board and a Move and returns a new Board. 
     // NOTE: this will need make/unmake move functions.
     
-    Bitboard getBitboard(Piece piece, Color color) const;
-    void setBitboard(Piece piece, Color color, const Bitboard& bitboard);
+    Bitboard getBitboard(Color color, Piece piece) const;
+    void setBitboard(Color color, Piece piece, const Bitboard& bitboard);
+
+    Bitboard getOccupiedSquares() const;
+    Bitboard getEmptySquares() const;
+    void setOccupiedSquares(const Bitboard& occupiedSquares);
+    void setEmptySquares(const Bitboard& emptySquares);
 
     std::string toFen() const;
     void pprint() const;

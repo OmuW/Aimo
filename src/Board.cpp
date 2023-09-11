@@ -54,6 +54,22 @@ Board::Board() {
     board[BLACK][ROOK] = Bitboard(0x8100000000000000ULL);
     board[BLACK][QUEEN] = Bitboard(0x0800000000000000ULL);
     board[BLACK][KING] = Bitboard(0x1000000000000000ULL);
+
+    occupiedSquares = board[WHITE][PAWN]
+        | board[WHITE][KNIGHT]
+        | board[WHITE][BISHOP]
+        | board[WHITE][ROOK]
+        | board[WHITE][QUEEN]
+        | board[WHITE][KING]
+        | board[BLACK][PAWN]
+        | board[BLACK][KNIGHT]
+        | board[BLACK][BISHOP]
+        | board[BLACK][ROOK]
+        | board[BLACK][QUEEN]
+        | board[BLACK][KING];
+    
+    emptySquares = ~occupiedSquares;
+
     activeColor = Color::WHITE;
     castlingRights = CastlingRights::WHITE_KING_SIDE
         | CastlingRights::WHITE_QUEEN_SIDE
@@ -119,6 +135,21 @@ Board::Board(std::string& fen) {
         }
     }
 
+    occupiedSquares = board[WHITE][PAWN]
+        | board[WHITE][KNIGHT]
+        | board[WHITE][BISHOP]
+        | board[WHITE][ROOK]
+        | board[WHITE][QUEEN]
+        | board[WHITE][KING]
+        | board[BLACK][PAWN]
+        | board[BLACK][KNIGHT]
+        | board[BLACK][BISHOP]
+        | board[BLACK][ROOK]
+        | board[BLACK][QUEEN]
+        | board[BLACK][KING];
+
+    emptySquares = ~occupiedSquares;
+
     // now, we'll grab the active color
     std::getline(fenStream, segment, ' ');
     activeColor = (segment == "w") ? Color::WHITE : Color::BLACK;
@@ -159,12 +190,28 @@ Board::Board(std::string& fen) {
     lastMove = Move(0, 0, MoveType::NORMAL);
 }
 
-Bitboard Board::getBitboard(Piece piece, Color color) const {
-    return board[piece][color];
+Bitboard Board::getBitboard(Color color, Piece piece) const {
+    return board[color][piece];
 }
 
-void Board::setBitboard(Piece piece, Color color, const Bitboard& bitboard) {
-    board[piece][color] = bitboard;
+void Board::setBitboard(Color color, Piece piece, const Bitboard& bitboard) {
+    board[color][piece] = bitboard;
+}
+
+Bitboard Board::getOccupiedSquares() const {
+    return occupiedSquares;
+}
+
+Bitboard Board::getEmptySquares() const {
+    return emptySquares;
+}
+
+void Board::setOccupiedSquares(const Bitboard& bitboard) {
+    occupiedSquares = bitboard;
+}
+
+void Board::setEmptySquares(const Bitboard& bitboard) {
+    emptySquares = bitboard;
 }
 
 void Board::pprint() const {

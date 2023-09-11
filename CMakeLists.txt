@@ -9,6 +9,7 @@ set(SOURCES
     src/Bitboard.cpp
     src/Board.cpp
     src/chess_utils.cpp
+    src/Movegen.cpp
 )
 
 set(HEADERS 
@@ -16,6 +17,7 @@ set(HEADERS
     include/Bitboard.h
     include/Board.h
     include/chess_utils.h
+    include/Movegen.h
 )
 
 add_library(aimo_lib ${SOURCES} ${HEADERS})

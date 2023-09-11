@@ -32,6 +32,8 @@ public:
 
 		bool operator==(const Bitboard& other) const;
 
+		operator bool() const;
+
     Bitboard operator|(const Bitboard& other) const;
     Bitboard operator&(const Bitboard& other) const;
 		Bitboard operator^(const Bitboard& other) const;

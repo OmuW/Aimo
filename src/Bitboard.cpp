@@ -66,6 +66,10 @@ bool Bitboard::operator==(const Bitboard& other) const {
 		return board == other.board;
 }
 
+Bitboard::operator bool() const {
+		return board != 0;
+}
+
 Bitboard Bitboard::operator|(const Bitboard& other) const {
     return Bitboard(board | other.board);
 }
