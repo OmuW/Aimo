@@ -4,10 +4,10 @@
 #include "Movegen.h"
 
 int main() {
-    std::string fen = "8/8/8/8/8/8/PPPPPPPP/8 w - - 0 1";
+    std::string fen = "8/8/8/8/8/7p/PPPPPPPP/8 w - - 0 1";
     Board pawnBoard(fen);
 
-    std::string black_fen = "8/pppppppp/8/8/8/8/8/8 b - - 0 1";
+    std::string black_fen = "8/pppppppP/8/8/8/8/8/8 b - h6 0 1";
     Board blackBoard(black_fen);
 
     Movegen generator(pawnBoard);

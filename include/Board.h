@@ -43,6 +43,8 @@ public:
     MoveType getMoveType();
     Piece getPromotionPiece();
     Piece getCapturedPiece();
+
+    void pprint() const;
 };
 
 extern std::array<std::array<std::string, PIECE_COUNT>, COLOR_COUNT> pieceStrings; 
@@ -52,6 +54,8 @@ private:
     std::array<std::array<Bitboard, PIECE_COUNT>, COLOR_COUNT> board;
     Bitboard occupiedSquares;
     Bitboard emptySquares;
+    Bitboard whitePieces;
+    Bitboard blackPieces;
 
     Color activeColor;
     std::uint8_t castlingRights; // 4 bits for each castling right.
@@ -72,6 +76,9 @@ public:
 
     Bitboard getOccupiedSquares() const;
     Bitboard getEmptySquares() const;
+    Bitboard getWhitePieces() const;
+    Bitboard getBlackPieces() const;
+    Bitboard getEnPassant() const;
     void setOccupiedSquares(const Bitboard& occupiedSquares);
     void setEmptySquares(const Bitboard& emptySquares);
 

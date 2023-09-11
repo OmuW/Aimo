@@ -13,10 +13,10 @@ Move::Move() {
     capturedPiece = PIECE_COUNT;
 }
 
-Move::Move(int to, int from, MoveType moveType) {
-    to = to;
-    from = from;
-    moveType = moveType;
+Move::Move(int toSquare, int fromSquare, MoveType move) {
+    to = toSquare;
+    from = fromSquare;
+    moveType = move;
     promotionPiece = PIECE_COUNT;
     capturedPiece = PIECE_COUNT;
 }
@@ -39,6 +39,10 @@ Piece Move::getPromotionPiece() {
 
 Piece Move::getCapturedPiece() {
     return capturedPiece;
+}
+
+void Move::pprint() const {
+    std::cout << "Move: " << ChessUtils::squareToString(from) << " -> " << ChessUtils::squareToString(to) << std::endl;
 }
 
 Board::Board() {
@@ -147,6 +151,20 @@ Board::Board(std::string& fen) {
         | board[BLACK][ROOK]
         | board[BLACK][QUEEN]
         | board[BLACK][KING];
+    
+    whitePieces = board[WHITE][PAWN]
+        | board[WHITE][KNIGHT]
+        | board[WHITE][BISHOP]
+        | board[WHITE][ROOK]
+        | board[WHITE][QUEEN]
+        | board[WHITE][KING];
+    
+    blackPieces = board[BLACK][PAWN]
+        | board[BLACK][KNIGHT]
+        | board[BLACK][BISHOP]
+        | board[BLACK][ROOK]
+        | board[BLACK][QUEEN]
+        | board[BLACK][KING];
 
     emptySquares = ~occupiedSquares;
 
@@ -204,6 +222,18 @@ Bitboard Board::getOccupiedSquares() const {
 
 Bitboard Board::getEmptySquares() const {
     return emptySquares;
+}
+
+Bitboard Board::getWhitePieces() const {
+    return whitePieces;
+}
+
+Bitboard Board::getBlackPieces() const {
+    return blackPieces;
+}
+
+Bitboard Board::getEnPassant() const {
+    return enPassant;
 }
 
 void Board::setOccupiedSquares(const Bitboard& bitboard) {
