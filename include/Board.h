@@ -17,6 +17,34 @@ enum CastlingRights {
     BLACK_KING_SIDE = 4,
     BLACK_QUEEN_SIDE = 8
 };
+enum MoveType {
+    NORMAL,
+    PAWN_DOUBLE_MOVE,
+    CAPTURE,
+    EN_PASSANT,
+    CASTLING,
+    PROMOTION
+};
+
+class Move {
+private:
+    int to;
+    int from;
+    MoveType moveType;
+    Piece promotionPiece;
+    Piece capturedPiece;
+public:
+    Move();
+    Move(int to, int from, MoveType moveType);
+    
+    void setPromotionPiece(Piece promotionPiece);
+    void setCapturedPiece(Piece capturedPiece);
+
+    MoveType getMoveType();
+    Piece getPromotionPiece();
+    Piece getCapturedPiece();
+};
+
 extern std::array<std::array<std::string, PIECE_COUNT>, COLOR_COUNT> pieceStrings; 
 
 class Board {
@@ -28,6 +56,8 @@ private:
     Bitboard enPassant; // The en passant square, if any. If no en passant square, this is 0.
     int halfMoveClock; // The number of half moves since the last capture or pawn advance.
     int fullMoveNumber;
+
+    Move lastMove;
 
 public:
     Board(); // Initializes the board to its starting position.

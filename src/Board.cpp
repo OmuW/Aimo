@@ -5,6 +5,42 @@ std::array<std::array<std::string, PIECE_COUNT>, COLOR_COUNT> pieceStrings = {{
     {"p", "n", "b", "r", "q", "k"}
 }};
 
+Move::Move() {
+    to = 0;
+    from = 0;
+    moveType = MoveType::NORMAL;
+    promotionPiece = PIECE_COUNT;
+    capturedPiece = PIECE_COUNT;
+}
+
+Move::Move(int to, int from, MoveType moveType) {
+    to = to;
+    from = from;
+    moveType = moveType;
+    promotionPiece = PIECE_COUNT;
+    capturedPiece = PIECE_COUNT;
+}
+
+void Move::setPromotionPiece(Piece piece) {
+    promotionPiece = piece;
+}
+
+void Move::setCapturedPiece(Piece piece) {
+    capturedPiece = piece;
+}
+
+MoveType Move::getMoveType() {
+    return moveType;
+}
+
+Piece Move::getPromotionPiece() {
+    return promotionPiece;
+}
+
+Piece Move::getCapturedPiece() {
+    return capturedPiece;
+}
+
 Board::Board() {
     board[WHITE][PAWN] = Bitboard(0x000000000000FF00ULL);
     board[WHITE][KNIGHT] = Bitboard(0x0000000000000042ULL);
@@ -26,6 +62,7 @@ Board::Board() {
     enPassant = Bitboard(0);
     halfMoveClock = 0;
     fullMoveNumber = 1;
+    lastMove = Move(0, 0, MoveType::NORMAL);
 }
 
 Board::Board(std::string& fen) {
@@ -118,6 +155,8 @@ Board::Board(std::string& fen) {
     // now, we'll grab the full move number
     std::getline(fenStream, segment, ' ');
     fullMoveNumber = std::stoi(segment);
+
+    lastMove = Move(0, 0, MoveType::NORMAL);
 }
 
 Bitboard Board::getBitboard(Piece piece, Color color) const {
