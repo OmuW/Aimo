@@ -21,6 +21,14 @@ Move::Move(int toSquare, int fromSquare, MoveType move) {
     capturedPiece = PIECE_COUNT;
 }
 
+int Move::getTo() const {
+    return to;
+}
+
+int Move::getFrom() const {
+    return from;
+}
+
 void Move::setPromotionPiece(Piece piece) {
     promotionPiece = piece;
 }
@@ -29,7 +37,7 @@ void Move::setCapturedPiece(Piece piece) {
     capturedPiece = piece;
 }
 
-MoveType Move::getMoveType() {
+MoveType Move::getMoveType() const {
     return moveType;
 }
 
@@ -46,6 +54,17 @@ void Move::pprint() const {
 }
 
 Board::Board() {
+    boardPieceArray = {{
+        "r", "n", "b", "q", "k", "b", "n", "r",
+        "p", "p", "p", "p", "p", "p", "p", "p",
+        "", "", "", "", "", "", "", "",
+        "", "", "", "", "", "", "", "",
+        "", "", "", "", "", "", "", "",
+        "", "", "", "", "", "", "", "",
+        "P", "P", "P", "P", "P", "P", "P", "P",
+        "R", "N", "B", "Q", "K", "B", "N", "R"
+    }};
+
     board[WHITE][PAWN] = Bitboard(0x000000000000FF00ULL);
     board[WHITE][KNIGHT] = Bitboard(0x0000000000000042ULL);
     board[WHITE][BISHOP] = Bitboard(0x0000000000000024ULL);
@@ -135,6 +154,7 @@ Board::Board(std::string& fen) {
                     break;
             }
             board[color][piece].setSquare(rank * 8 + file);
+            boardPieceArray[rank * 8 + file] = pieceStrings[color][piece];
             file++;
         }
     }
@@ -195,6 +215,7 @@ Board::Board(std::string& fen) {
         int file = segment[0] - 'a';
         int rank = segment[1] - '1';
         enPassant.setSquare(rank * 8 + file);
+        boardPieceArray[rank * 8 + file] = "e";
     }
 
     // now, we'll grab the half move clock
@@ -208,12 +229,69 @@ Board::Board(std::string& fen) {
     lastMove = Move(0, 0, MoveType::NORMAL);
 }
 
+Piece Board::getPiece(int position) const {
+    std::string pieceString = boardPieceArray[position];
+    if (pieceString == "P" || pieceString == "p") {
+        return PAWN;
+    } else if (pieceString == "N" || pieceString == "n") {
+        return KNIGHT;
+    } else if (pieceString == "B" || pieceString == "b") {
+        return BISHOP;
+    } else if (pieceString == "R" || pieceString == "r") {
+        return ROOK;
+    } else if (pieceString == "Q" || pieceString == "q") {
+        return QUEEN;
+    } else if (pieceString == "K" || pieceString == "k") {
+        return KING;
+    } else {
+        return PIECE_COUNT;
+    }
+}
+
+void Board::movePieceInBitboard(Color color, Piece piece, int from, int to) {
+    board[color][piece].clearSquare(from);
+    board[color][piece].setSquare(to);
+    boardPieceArray[from] = "";
+    boardPieceArray[to] = pieceStrings[color][piece];
+    occupiedSquares.setSquare(to);
+    occupiedSquares.clearSquare(from);
+    emptySquares.clearSquare(to);
+    emptySquares.setSquare(from);
+    if (color == WHITE) {
+        whitePieces.setSquare(to);
+        whitePieces.clearSquare(from);
+    } else {
+        blackPieces.setSquare(to);
+        blackPieces.clearSquare(from);
+    }
+}
+
+void Board::removePieceFromBitboard(Color color, Piece piece, int square) {
+    board[color][piece].clearSquare(square);
+    boardPieceArray[square] = "";
+    occupiedSquares.clearSquare(square);
+    emptySquares.setSquare(square);
+    if (color == WHITE) {
+        whitePieces.clearSquare(square);
+    } else {
+        blackPieces.clearSquare(square);
+    }
+}
+
 Bitboard Board::getBitboard(Color color, Piece piece) const {
     return board[color][piece];
 }
 
 void Board::setBitboard(Color color, Piece piece, const Bitboard& bitboard) {
     board[color][piece] = bitboard;
+}
+
+std::string Board::getPieceString(int position) const {
+    return boardPieceArray[position];
+}
+
+void Board::setPieceString(int position, std::string pieceString) {
+    boardPieceArray[position] = pieceString;
 }
 
 Bitboard Board::getOccupiedSquares() const {
@@ -243,6 +321,68 @@ void Board::setOccupiedSquares(const Bitboard& bitboard) {
 void Board::setEmptySquares(const Bitboard& bitboard) {
     emptySquares = bitboard;
 }
+
+Color Board::getActiveColor() const {
+    return activeColor;
+}
+
+void Board::makeMove(const Move& move) {
+    if (enPassant) {
+        enPassant = Bitboard(0);
+    }
+    int from = move.getFrom();
+    int to = move.getTo();
+    MoveType moveType = move.getMoveType();
+
+    // Identify the moving piece
+    Piece movingPiece = getPiece(from);  // You'll need to write this utility function
+
+    if (moveType == CAPTURE) {
+        Piece capturedPiece = getPiece(to);
+        removePieceFromBitboard(activeColor, capturedPiece, to);
+    }
+
+    // Update the board bitboards
+    movePieceInBitboard(activeColor, movingPiece, from, to);
+
+    // Handle special move cases
+    switch(moveType) {
+        case NORMAL: {
+            // Nothing extra for normal moves
+            break;
+        }
+        case PAWN_DOUBLE_MOVE: {
+            // Maybe set an en passant square?
+            if (activeColor == WHITE) {
+                enPassant = Bitboard(1ULL << (to - 8));
+            } else {
+                enPassant = Bitboard(1ULL << (to + 8));
+            }
+            break;
+        }
+        case CAPTURE: {
+            break;
+        }
+        case EN_PASSANT: {
+            // Remove the captured pawn
+            Color capturedColor = activeColor == WHITE ? BLACK : WHITE;
+            int epSquare = activeColor == WHITE ? to - 8 : to + 8;
+            removePieceFromBitboard(capturedColor, PAWN, epSquare);
+            break;
+        }
+        case CASTLING: {
+            break;
+        }
+        case PROMOTION: {
+            break;
+        }
+    }
+
+    lastMove = move;
+    activeColor = activeColor == WHITE ? BLACK : WHITE;
+}
+
+
 
 void Board::pprint() const {
     std::cout << "  |---|---|---|---|---|---|---|---|" << std::endl;

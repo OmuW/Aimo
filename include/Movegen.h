@@ -7,9 +7,9 @@ class Movegen {
 private:
     Board& board;
 
-    void generatePawnMoves(Color color, std::vector<Move>& moveList);
+    void generatePawnMoves(std::vector<Move>& moveList);
 public:
     Movegen(Board& b) : board(b) {}
 
-    std::vector<Move> generateLegalMoves(Color color);
+    std::vector<Move> generateLegalMoves();
 };

@@ -1,9 +1,10 @@
 #include "Movegen.h"
 
-void Movegen::generatePawnMoves(Color color, std::vector<Move>& moveList) {
+void Movegen::generatePawnMoves(std::vector<Move>& moveList) {
     Bitboard pawns;
     Bitboard emptySquares = board.getEmptySquares();
     Bitboard pawnMoves, doublePawnMoves, pawnAttacksLeft, pawnAttacksRight, enPassantLeft, enPassantRight;
+    Color color = board.getActiveColor();
 
     if(color == WHITE) {
         pawns = board.getBitboard(WHITE, PAWN);
@@ -85,10 +86,10 @@ void Movegen::generatePawnMoves(Color color, std::vector<Move>& moveList) {
 }
 
 
-std::vector<Move> Movegen::generateLegalMoves(Color color) {
+std::vector<Move> Movegen::generateLegalMoves() {
     std::vector<Move> moveList;
 
-    generatePawnMoves(color, moveList);
+    generatePawnMoves(moveList);
 
     return moveList;
 }
