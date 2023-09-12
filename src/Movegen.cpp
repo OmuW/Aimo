@@ -88,7 +88,12 @@ void Movegen::generatePawnMoves(std::vector<Move>& moveList) {
 
 std::vector<Move> Movegen::generateLegalMoves() {
     std::vector<Move> moveList;
-
+    /* THIS IS ONLY FOR NOW, ONLY FOR PAWNS, WE NEED A BETTER WAY TO DO THIS!!!!!*/
+    /* TODO: */
+    if ((board.getBitboard(WHITE, PAWN) & Bitboard(0xFF00000000000000ULL)) 
+        || (board.getBitboard(BLACK, PAWN) & Bitboard(0x00000000000000FFULL))) {
+        return moveList;
+    }
     generatePawnMoves(moveList);
 
     return moveList;

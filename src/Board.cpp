@@ -215,7 +215,6 @@ Board::Board(std::string& fen) {
         int file = segment[0] - 'a';
         int rank = segment[1] - '1';
         enPassant.setSquare(rank * 8 + file);
-        boardPieceArray[rank * 8 + file] = "e";
     }
 
     // now, we'll grab the half move clock
@@ -244,6 +243,7 @@ Piece Board::getPiece(int position) const {
     } else if (pieceString == "K" || pieceString == "k") {
         return KING;
     } else {
+        std::cout << "unknown piece at position " << position << ": " << pieceString << std::endl;
         return PIECE_COUNT;
     }
 }
@@ -326,20 +326,36 @@ Color Board::getActiveColor() const {
     return activeColor;
 }
 
+
+void printArr(std::array<std::string, 64> arr) {
+    for (int rank = 7; rank >= 0; --rank) {
+        for (int file = 0; file < 8; ++file) {
+            int position = rank * 8 + file;
+            std::cout << (arr[position] != "" ? arr[position] : " ") << " ";
+        }
+        std::cout << std::endl;
+    }
+}
+
+
+
 void Board::makeMove(const Move& move) {
     if (enPassant) {
         enPassant = Bitboard(0);
     }
     int from = move.getFrom();
     int to = move.getTo();
+
     MoveType moveType = move.getMoveType();
 
     // Identify the moving piece
-    Piece movingPiece = getPiece(from);  // You'll need to write this utility function
+    Piece movingPiece = getPiece(from);
+
+    printArr(boardPieceArray);
 
     if (moveType == CAPTURE) {
         Piece capturedPiece = getPiece(to);
-        removePieceFromBitboard(activeColor, capturedPiece, to);
+        removePieceFromBitboard(activeColor == WHITE ? BLACK : WHITE, capturedPiece, to);
     }
 
     // Update the board bitboards
@@ -423,3 +439,4 @@ void Board::pprint() const {
     std::cout << "Half Move Clock: " << halfMoveClock << std::endl;
     std::cout << "Full Move Number: " << fullMoveNumber << std::endl;
 }
+

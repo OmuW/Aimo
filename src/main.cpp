@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <cstdlib>
+#include <ctime>
 #include "Board.h"
 #include "Movegen.h"
 
@@ -9,15 +10,17 @@ int main() {
     Board board(fen);
     board.pprint();
 
-    Movegen movegen(board);
+    srand(time(NULL));
 
-    for (int i = 0; i < 40; i++) {
-        std::vector<Move> moves = movegen.generateLegalMoves();
+    Movegen movegen(board);
+    std::vector<Move> moves = movegen.generateLegalMoves();
+    while (moves.size() > 0) {
         Move move = moves[rand() % moves.size()];
         board.makeMove(move);
         board.pprint();
-
+        moves = movegen.generateLegalMoves();
     }
+    
 
     return 0;
 }
