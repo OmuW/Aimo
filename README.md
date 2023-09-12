@@ -1,6 +1,12 @@
 # Aimo
 
-Bitboard Chess Engine
+A Didactic Bitboard Chess Engine
+
+![Aimo Koivunen -- Finnish Soldier and the first documented case of a soldier overdosing on methamphetamine during combat.](https://github.com/OmuW/Aimo/blob/main/aimo.jpg?raw=true)
+
+## What is this?
+
+A chess engine is a program that plays chess. It takes as input a chess position and outputs a move. This project is a chess engine written in C++. It is not meant to be a strong chess engine, but rather a didactic one. It is meant to be easy to understand and modify.
 
 ## How to build
 
