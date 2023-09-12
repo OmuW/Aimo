@@ -2,7 +2,7 @@
 
 A Didactic Bitboard Chess Engine
 
-![Aimo Koivunen -- Finnish Soldier and the first documented case of a soldier overdosing on methamphetamine during combat.](https://github.com/OmuW/Aimo/blob/main/aimo.jpeg)
+![Aimo Koivunen -- Finnish Soldier and the first documented case of a soldier overdosing on methamphetamine during combat.](https://github.com/OmuW/Aimo/blob/main/aimo.jpeg =250x250)
 
 ## What is this?
 
