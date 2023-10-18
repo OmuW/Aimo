@@ -4,6 +4,7 @@
 #include <ctime>
 #include "Board.h"
 #include "Movegen.h"
+#include "Evaluation.h"
 
 int main() {
     std::string fen = "8/pppppppp/8/8/8/8/PPPPPPPP/8 w - - 0 1";
@@ -18,6 +19,7 @@ int main() {
         Move move = moves[rand() % moves.size()];
         board.makeMove(move);
         board.pprint();
+        std::cout << "Evaluation: " << evaluate(board) << std::endl;
         moves = movegen.generateLegalMoves();
     }
     

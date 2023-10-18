@@ -1,0 +1,140 @@
+===============================================================================
+EXTENSION NAME : linecounter
+EXTENSION VERSION : 0.2.7
+-------------------------------------------------------------------------------
+count time : 2023-09-11 21:03:34
+count workspace : /Users/michaelnovotny/Desktop/Aimo
+total files : 59
+total code lines : 9852
+total comment lines : 37
+total blank lines : 1185
+
+    statistics
+   |      extension|     total code|  total comment|    total blank|percent|
+   -------------------------------------------------------------------------
+   |           .cpp|            666|             24|            140|    6.8|
+   |          .json|           2857|              0|             15|     29|
+   |               |            480|              2|            145|    4.9|
+   |         .cmake|            123|              0|             33|    1.2|
+   |           .xml|             34|              0|              0|   0.35|
+   |           .txt|           1236|              0|            167|     13|
+   |            .md|             28|              0|             16|   0.28|
+   |         .marks|              1|              0|              0|  0.010|
+   |           .log|              3|              0|              0|  0.030|
+   |             .h|            157|             11|             34|    1.6|
+   |          .make|           1861|              0|            632|     19|
+   |      .internal|           1203|              0|              3|     12|
+   |             .d|           1201|              0|              0|     12|
+   |            .ts|              2|              0|              0|  0.020|
+   -------------------------------------------------------------------------
+.gitignore, code is 40, comment is 0, blank is 7.
+aimo.jpeg, it is a binary file.
+build/.cmake/api/v1/query/client-vscode/query.json, code is 1, comment is 0, blank is 0.
+build/.cmake/api/v1/reply/cache-v2-e7b9649d18ec334a8771.json, code is 1191, comment is 0, blank is 0.
+build/.cmake/api/v1/reply/cmakeFiles-v1-4d78df804c675a7d3711.json, code is 788, comment is 0, blank is 0.
+build/.cmake/api/v1/reply/codemodel-v2-0a48addba45fb89dba09.json, code is 97, comment is 0, blank is 0.
+build/.cmake/api/v1/reply/directory-.-Debug-f5ebdc15457944623624.json, code is 14, comment is 0, blank is 0.
+build/.cmake/api/v1/reply/directory-tests-Debug-b01f6abb0ab61427ef3b.json, code is 14, comment is 0, blank is 0.
+build/.cmake/api/v1/reply/index-2023-09-11T20-36-32-0551.json, code is 132, comment is 0, blank is 0.
+build/.cmake/api/v1/reply/target-aimo-Debug-268a910f4566f79d80ac.json, code is 123, comment is 0, blank is 2.
+build/.cmake/api/v1/reply/target-aimo_lib-Debug-d7bff379e300d7262c4d.json, code is 169, comment is 0, blank is 2.
+build/.cmake/api/v1/reply/target-tests-Debug-9b847a991c88666637f9.json, code is 196, comment is 0, blank is 2.
+build/.cmake/api/v1/reply/toolchains-v1-5854716c1daf7d2531ec.json, code is 82, comment is 0, blank is 9.
+build/aimo, it is a binary file.
+build/aimo.txt, code is 1208, comment is 0, blank is 160.
+build/cmake_install.cmake, code is 46, comment is 0, blank is 9.
+build/compile_commands.json, code is 50, comment is 0, blank is 0.
+build/CTestTestfile.cmake, code is 7, comment is 0, blank is 0.
+build/libaimo_lib.a, it is a binary file.
+build/Makefile, code is 271, comment is 1, blank is 84.
+build/Testing/20230911-2036/Test.xml, code is 34, comment is 0, blank is 0.
+build/Testing/TAG, code is 3, comment is 0, blank is 0.
+build/Testing/Temporary/LastTest_20230911-2036.log, code is 3, comment is 0, blank is 0.
+build/tests/cmake_install.cmake, code is 33, comment is 0, blank is 6.
+build/tests/CMakeFiles/CMakeDirectoryInformation.cmake, code is 12, comment is 0, blank is 4.
+build/tests/CMakeFiles/progress.marks, code is 1, comment is 0, blank is 0.
+build/tests/CMakeFiles/tests.dir/bitboard_test.cpp.o, it is a binary file.
+build/tests/CMakeFiles/tests.dir/bitboard_test.cpp.o.d, code is 601, comment is 0, blank is 0.
+build/tests/CMakeFiles/tests.dir/build.make, code is 47, comment is 0, blank is 22.
+build/tests/CMakeFiles/tests.dir/cmake_clean.cmake, code is 6, comment is 0, blank is 7.
+build/tests/CMakeFiles/tests.dir/compiler_depend.internal, code is 1203, comment is 0, blank is 3.
+build/tests/CMakeFiles/tests.dir/compiler_depend.make, code is 1803, comment is 0, blank is 605.
+build/tests/CMakeFiles/tests.dir/compiler_depend.ts, code is 2, comment is 0, blank is 0.
+build/tests/CMakeFiles/tests.dir/depend.make, code is 2, comment is 0, blank is 0.
+build/tests/CMakeFiles/tests.dir/DependInfo.cmake, code is 13, comment is 0, blank is 7.
+build/tests/CMakeFiles/tests.dir/flags.make, code is 6, comment is 0, blank is 4.
+build/tests/CMakeFiles/tests.dir/link.txt, code is 1, comment is 0, blank is 0.
+build/tests/CMakeFiles/tests.dir/progress.make, code is 3, comment is 0, blank is 1.
+build/tests/CMakeFiles/tests.dir/test_main.cpp.o, it is a binary file.
+build/tests/CMakeFiles/tests.dir/test_main.cpp.o.d, code is 600, comment is 0, blank is 0.
+build/tests/CTestTestfile.cmake, code is 6, comment is 0, blank is 0.
+build/tests/Makefile, code is 166, comment is 1, blank is 54.
+build/tests/tests, it is a binary file.
+CMakeLists.txt, code is 24, comment is 0, blank is 6.
+include/Bitboard.h, code is 40, comment is 5, blank is 10.
+include/Board.h, code is 84, comment is 6, blank is 19.
+include/chess_utils.h, code is 18, comment is 0, blank is 1.
+include/fib.h, code is 3, comment is 0, blank is 1.
+include/Movegen.h, code is 12, comment is 0, blank is 3.
+README.md, code is 28, comment is 0, blank is 16.
+src/Bitboard.cpp, code is 100, comment is 0, blank is 30.
+src/Board.cpp, code is 370, comment is 12, blank is 60.
+src/chess_utils.cpp, code is 17, comment is 0, blank is 2.
+src/fib.cpp, code is 7, comment is 0, blank is 0.
+src/main.cpp, code is 21, comment is 0, blank is 5.
+src/Movegen.cpp, code is 71, comment is 4, blank is 26.
+tests/bitboard_test.cpp, code is 68, comment is 7, blank is 16.
+tests/CMakeLists.txt, code is 3, comment is 0, blank is 1.
+tests/test_main.cpp, code is 12, comment is 1, blank is 1.
+===============================================================================
+===============================================================================
+EXTENSION NAME : linecounter
+EXTENSION VERSION : 0.2.7
+-------------------------------------------------------------------------------
+count time : 2023-09-11 21:05:00
+count workspace : /Users/michaelnovotny/Desktop/Aimo
+total files : 29
+total code lines : 3725
+total comment lines : 35
+total blank lines : 219
+
+    statistics
+   |      extension|     total code|  total comment|    total blank|percent|
+   -------------------------------------------------------------------------
+   |           .cpp|            666|             24|            140|     18|
+   |          .json|           2807|              0|             15|     75|
+   |            .md|             28|              0|             16|   0.75|
+   |               |             40|              0|              7|    1.1|
+   |             .h|            157|             11|             34|    4.2|
+   |           .txt|             27|              0|              7|   0.72|
+   -------------------------------------------------------------------------
+.gitignore, code is 40, comment is 0, blank is 7.
+aimo.jpeg, it is a binary file.
+build/.cmake/api/v1/query/client-vscode/query.json, code is 1, comment is 0, blank is 0.
+build/.cmake/api/v1/reply/cache-v2-e7b9649d18ec334a8771.json, code is 1191, comment is 0, blank is 0.
+build/.cmake/api/v1/reply/cmakeFiles-v1-4d78df804c675a7d3711.json, code is 788, comment is 0, blank is 0.
+build/.cmake/api/v1/reply/codemodel-v2-0a48addba45fb89dba09.json, code is 97, comment is 0, blank is 0.
+build/.cmake/api/v1/reply/directory-.-Debug-f5ebdc15457944623624.json, code is 14, comment is 0, blank is 0.
+build/.cmake/api/v1/reply/directory-tests-Debug-b01f6abb0ab61427ef3b.json, code is 14, comment is 0, blank is 0.
+build/.cmake/api/v1/reply/index-2023-09-11T20-36-32-0551.json, code is 132, comment is 0, blank is 0.
+build/.cmake/api/v1/reply/target-aimo-Debug-268a910f4566f79d80ac.json, code is 123, comment is 0, blank is 2.
+build/.cmake/api/v1/reply/target-aimo_lib-Debug-d7bff379e300d7262c4d.json, code is 169, comment is 0, blank is 2.
+build/.cmake/api/v1/reply/target-tests-Debug-9b847a991c88666637f9.json, code is 196, comment is 0, blank is 2.
+build/.cmake/api/v1/reply/toolchains-v1-5854716c1daf7d2531ec.json, code is 82, comment is 0, blank is 9.
+CMakeLists.txt, code is 24, comment is 0, blank is 6.
+include/Bitboard.h, code is 40, comment is 5, blank is 10.
+include/Board.h, code is 84, comment is 6, blank is 19.
+include/chess_utils.h, code is 18, comment is 0, blank is 1.
+include/fib.h, code is 3, comment is 0, blank is 1.
+include/Movegen.h, code is 12, comment is 0, blank is 3.
+README.md, code is 28, comment is 0, blank is 16.
+src/Bitboard.cpp, code is 100, comment is 0, blank is 30.
+src/Board.cpp, code is 370, comment is 12, blank is 60.
+src/chess_utils.cpp, code is 17, comment is 0, blank is 2.
+src/fib.cpp, code is 7, comment is 0, blank is 0.
+src/main.cpp, code is 21, comment is 0, blank is 5.
+src/Movegen.cpp, code is 71, comment is 4, blank is 26.
+tests/bitboard_test.cpp, code is 68, comment is 7, blank is 16.
+tests/CMakeLists.txt, code is 3, comment is 0, blank is 1.
+tests/test_main.cpp, code is 12, comment is 1, blank is 1.
+===============================================================================

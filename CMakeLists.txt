@@ -5,19 +5,19 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 set(SOURCES 
-    src/fib.cpp
     src/Bitboard.cpp
     src/Board.cpp
     src/chess_utils.cpp
     src/Movegen.cpp
+    src/Evaluation.cpp
 )
 
 set(HEADERS 
-    include/fib.h
     include/Bitboard.h
     include/Board.h
     include/chess_utils.h
     include/Movegen.h
+    include/Evaluation.h
 )
 
 add_library(aimo_lib ${SOURCES} ${HEADERS})

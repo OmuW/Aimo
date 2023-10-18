@@ -351,8 +351,6 @@ void Board::makeMove(const Move& move) {
     // Identify the moving piece
     Piece movingPiece = getPiece(from);
 
-    printArr(boardPieceArray);
-
     if (moveType == CAPTURE) {
         Piece capturedPiece = getPiece(to);
         removePieceFromBitboard(activeColor == WHITE ? BLACK : WHITE, capturedPiece, to);
